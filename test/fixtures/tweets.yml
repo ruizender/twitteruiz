@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  textweet: MyString
+  retweet: 1
+  tweet_photo: MyString
+  user: one
+
+two:
+  textweet: MyString
+  retweet: 1
+  tweet_photo: MyString
+  user: two

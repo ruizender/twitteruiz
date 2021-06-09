@@ -1,8 +1,5 @@
-<% if user_signed_in? %>
-  <%= "Bienvenido #{current_user.nickname}" %>
-<% end %>
 <p id="notice"><%= notice %></p>
-
+skip_before_action :authenticate_user!
 <h1>Tweets Timeline</h1>
 
 <table class='table'>
@@ -32,8 +29,3 @@
 </table>
 <br>
 
-<div class="row mr-auto">
-  <div class="col-md-8 offset-md-2">
-    <%= paginate @tweets %>
-  </div>
-</div>
