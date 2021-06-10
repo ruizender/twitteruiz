@@ -3,15 +3,22 @@
 <% end %>
 <p id="notice"><%= notice %></p>
 
+
+<% if user_signed_in?  %>
+  <%= render 'tweets/form', tweet: @tweet %>
+<% end %>
+
 <h1>Tweets Timeline</h1>
 
 <table class='table'>
   <thead>
     <tr>
-      <th>Textweet</th>
+      <th>Tweet</th>
+      <th>Foto_Perfil</th>
+      <th>NickName</th>     
       <th>Retweet</th>
-      <th>Tweet photo</th>
-      <th>User</th>
+      <th>Likes</th>
+      <th>Fecha_publicacion</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,20 +27,22 @@
     <% @tweets.each do |tweet| %>
       <tr>
         <td><%= tweet.textweet %></td>
+        <td><img src="<%= tweet.user.profile_photo %>" height="45" width="45" alt=""></td>
+        <td><%= tweet.user.nickname %></td>
         <td><%= tweet.retweet %></td>
-        <td><%= tweet.tweet_photo %></td>
-        <td><%= tweet.user %></td>
-        <td><%= link_to 'Show', tweet %></td>
-        <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
-        <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= tweet.retweet %></td> 
+        <td><%= link_to 'TEST', tweet_path(tweet.id) %></td>
+        <td><%= link_to 'Retweet', new_tweet_path, class:'btn btn-primary text-light' %></td>
+
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
 
-<div class="row mr-auto">
-  <div class="col-md-8 offset-md-2">
-    <%= paginate @tweets %>
-  </div>
+<div class="row ">
+    <div class="col-md-8 offset-md-2">
+        <%= link_to_prev_page @tweets, 'Volver',  class:'mx-2'%>
+        <%= link_to_next_page @tweets, 'Mostrar mas tweet'%>
+    </div>
 </div>
