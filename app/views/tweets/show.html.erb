@@ -11,13 +11,15 @@
 </p>
 
 <p>
-  <strong>Tweet photo:</strong>
-  <%= @tweet.tweet_photo %>
+  <strong>User:</strong>
+  <%= @tweet.user %>
 </p>
 
 <p>
-  <strong>User:</strong>
-  <%= @tweet.user %>
+  <strong>Usuarios que dieron likes:</strong>
+  <% @tweet.likes.each do |like|%>
+  <img src="<%= like.user.profile_photo %>" alt="" weight="40px" height="40px">
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_tweet_path(@tweet) %> |

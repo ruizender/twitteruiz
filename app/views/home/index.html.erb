@@ -33,18 +33,19 @@
         <td><%= tweet.retweet %></td>
         <td><%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? '' : ''%></td>
         <td><%= link_to time_ago_in_words(tweet.created_at),tweet %></td>
+        <% if user_signed_in?  %>
         <% pre_like = tweet.likes.find {|like| like.user.id == current_user.id}  %> 
           <% if pre_like  %>
-                  <td> <%= link_to (like_path(tweet.id)), method: :delete do %>
-                  <i class="fas fa-thumbs-up fa-2x text-primary"></i></td>
-              <% end %>  
-              <% else  %>
-                  <td> <%= link_to (likes_path(tweet.id)), method: :post do %>
-                <i class="far fa-thumbs-up fa-2x text-primary"></i></td>
+                    <td> <%= link_to (like_path(tweet.id)), method: :delete do %>
+                    <i class="fas fa-thumbs-up fa-2x text-primary"></i></td>
+                <% end %>  
+                <% else  %>
+                    <td> <%= link_to (likes_path(tweet.id)), method: :post do %>
+                  <i class="far fa-thumbs-up fa-2x text-primary"></i></td>
+                <% end %>
               <% end %>
-          <% end %>
+            <% end  %>
           <td><%= link_to 'Retweet', new_tweet_path, class:'btn btn-primary text-light' %></td>
-
       </tr>
     <% end %>
   </tbody>
