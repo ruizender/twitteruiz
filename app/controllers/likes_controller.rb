@@ -1,16 +1,37 @@
 class LikesController < ApplicationController
 
-  def create
-    @user = current_user.id
-    @product = params[:product_id]
-    likes = {user_id: @user, product_id: @product}
-    @like = Like.new(likes)
+  before_action :find_tweet
+  before_action :find_like, only: [:destroy]
 
-    @like.save!
-    if @like.save
-      redirect_to user_path(@user)
-    else
-    redirect_to product_path
+    def create
+
+      if already_liked?
+        flash[:notice] = "Tweet already liked"
+      else
+        @tweet.likes.create(user_id: current_user.id)
+      end
+      redirect_to root_path(@tweet)
     end
-  end
+    def destroy
+      if already_liked?
+        @like.destroy
+      else
+        flash[:notice] = "Tweet already unliked" 
+      end
+      redirect_to root_path
+    end
+    
+    private
+  
+    def find_tweet
+      @tweet = Tweet.find_by(id: params[:format])
+    end
+    
+    def find_like
+      @like = Like.find_by(user_id: current_user.id, tweet_id: params[:id])
+    end
+
+    def already_liked?
+      Like.find_by(user_id: current_user.id, tweet_id: params[:id]) != nil
+    end
 end

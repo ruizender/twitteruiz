@@ -65,3 +65,4 @@ class TweetsController < ApplicationController
       params.require(:tweet).permit(:textweet, :retweet, :tweet_photo, :user_id)
     end
 end
+

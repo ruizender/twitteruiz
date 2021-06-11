@@ -1,5 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-primary fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
       <a class="navbar-brand" href="<%=root_path%>"><i class="fas fa-crow text-white fa-2x"></i></a>
+      <span class="navbar h2 text-light font-weight-bolder">Twitter</span>
       <button class="navbar-toggler" type="button" data-toggle="collapse"           data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"  aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -17,7 +18,7 @@
           <%= link_to 'Registrate Aqui', new_user_registration_path, class:'btn btn-light' %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Inicia Sesion', new_user_session_path, class:'btn btn-secondary mx-2'  %>
+          <%= link_to 'Inicia Sesion', new_user_session_path, class:'btn btn-secondary mx-2 text-light'  %>
         </li>
         <% end %>
       </ul>
