@@ -1,5 +1,5 @@
 class TweetsController < ApplicationController
-  before_action :set_tweet, only: %i[ show edit update destroy ]
+  before_action :set_tweet, only: %i[ show edit update destroy retweet ]
   
   # GET /tweets or /tweets.json
 
@@ -53,6 +53,27 @@ class TweetsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+# buttton retweet
+  def retweet
+    redirect_to root_path, alert: 'no puedes hacer retweet' and return if @tweet.user == current_user
+    retweeted = Tweet.new(content: @tweet.content)
+    retweeted.user = current_user
+    retweeted.rt_ref = @tweet.id
+    if retweeted.save
+      if @tweet.retweet.nil?
+        @tweet.update(retweet: @tweet.retweet = 1)  
+      else
+        
+        @tweet.update(retweet: @tweet.retweet += 1)
+      end
+      
+      redirect_to root_path, notice: 'retweet ingresado con exito'
+    else
+      redirect_to root_path, alert: 'no es posible hacer retweet'
+    end 
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
