@@ -49,18 +49,18 @@ class TweetsController < ApplicationController
   def destroy
     @tweet.destroy
     respond_to do |format|
-      format.html { redirect_to tweets_url, notice: "Tweet was successfully destroyed." }
+      format.html { redirect_to root_path, notice: "Tweet was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
 # buttton retweet
   def retweet
-    redirect_to root_path, alert: 'no puedes hacer retweet' and return if @tweet.user == current_user
-    retweeted = Tweet.new(content: @tweet.content)
-    retweeted.user = current_user
-    retweeted.rt_ref = @tweet.id
-    if retweeted.save
+    redirect_to root_path, alert: "you can't retweet yourself" and return if @tweet.user == current_user
+    retweet_ready = Tweet.new(textweet: @tweet.textweet)
+    retweet_ready.user = current_user
+    retweet_ready.ref_id_tweet = @tweet.id
+    if retweet_ready.save
       if @tweet.retweet.nil?
         @tweet.update(retweet: @tweet.retweet = 1)  
       else
@@ -68,9 +68,7 @@ class TweetsController < ApplicationController
         @tweet.update(retweet: @tweet.retweet += 1)
       end
       
-      redirect_to root_path, notice: 'retweet ingresado con exito'
-    else
-      redirect_to root_path, alert: 'no es posible hacer retweet'
+      redirect_to root_path, notice: 'retweet successfully entered'
     end 
   end
 

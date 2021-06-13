@@ -1,7 +1,8 @@
 <% if user_signed_in? %>
-  <%= "Bienvenido #{current_user.nickname}"%>
+  <span class="h3"> <%= "Bienvenido: #{current_user.nickname}"%></span>
+
 <% end %>
-<p id="notice"><%= notice %></p>
+<p id="notice" ><%= notice %></p>
 
 <% if user_signed_in?  %>
 <div class="border-bottom border-primary">
@@ -16,10 +17,13 @@
     <tr>
       <th>Tweet</th>
       <th>Foto_Perfil</th>
-      <th>NickName</th>     
+      <th>NickName</th> 
       <th>Retweet</th>
       <th>Likes</th>
       <th>Fecha_publicacion</th>
+      <th> </th>
+      <th> </th>
+      <th>Tweet_by</th>        
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -31,11 +35,11 @@
         <td><img src="<%= tweet.user.profile_photo %>" height="45" width="45" alt=""></td>
         <td><%= tweet.user.nickname %></td>
         <td><%= tweet.retweet %></td>
-        <td><%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? '' : ''%></td>
+        <td><%= tweet.likes.count %></td>
         <td><%= link_to time_ago_in_words(tweet.created_at),tweet %></td>
         <% if user_signed_in?  %>
-        <% pre_like = tweet.likes.find {|like| like.user.id == current_user.id}  %> 
-          <td><%= link_to 'Retweet', new_tweet_path, class:'btn btn-primary text-light' %></td>
+          <% pre_like = tweet.likes.find {|like| like.user.id == current_user.id}  %> 
+        <td><%= link_to 'Retweet', retweet_tweet_path(tweet), method: :post, class:'btn btn-primary text-light' %></td>
           <% if pre_like  %>
                     <td> <%= link_to (like_path(tweet.id)), method: :delete do %>
                     <i class="fas fa-thumbs-up fa-2x text-primary"></i></td>
@@ -43,16 +47,17 @@
                 <% else  %>
                     <td> <%= link_to (likes_path(tweet.id)), method: :post do %>
                   <i class="far fa-thumbs-up fa-2x text-primary"></i></td>
+                  <% end %> 
                 <% end %>
               <% end %>
+              <% if tweet.ref_id_tweet != nil %>
+              <td><%= link_to "Ir a Tweet original", tweet_path(tweet.ref_id_tweet)%></td>
             <% end  %>
       </tr>
     <% end %>
   </tbody>
 </table>
 <br>
-
-
 
 <div class="row ">
     <div class="col-md-8 offset-md-2">

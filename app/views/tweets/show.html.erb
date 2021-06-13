@@ -1,26 +1,35 @@
 <p id="notice"><%= notice %></p>
+<div class="border border-secondary container bg-light my-45">
+      <p class="h3">
+        <strong>Textweet:</strong>
+        <%= @tweet.textweet %>
+      </p>
 
-<p>
-  <strong>Textweet:</strong>
-  <%= @tweet.textweet %>
-</p>
+      <p>
+        <strong>Retweet:</strong>
+        <%= @tweet.retweet %>
+      </p>
 
-<p>
-  <strong>Retweet:</strong>
-  <%= @tweet.retweet %>
-</p>
+      <p>
+        <strong>User:</strong>
+        <%= @tweet.user.nickname %>
+        <img src="<%= @tweet.user.profile_photo %>" height="45" width="45" alt="">
+      </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @tweet.user.nickname %>
-</p>
+      <p>
+        <strong>Usuarios que dieron likes:</strong>
+        <% @tweet.likes.each do |like|%>
+        <img src="<%= like.user.profile_photo %>" alt="" weight="40px" height="40px">
+        <% end %>
+      </p>
 
-<p>
-  <strong>Usuarios que dieron likes:</strong>
-  <% @tweet.likes.each do |like|%>
-  <img src="<%= like.user.profile_photo %>" alt="" weight="40px" height="40px">
-  <% end %>
-</p>
-
-<%= link_to 'Edit', edit_tweet_path(@tweet) %> |
-<%= link_to 'Back', root_path %>
+      <%= link_to edit_tweet_path(@tweet) do %> 
+      <i class="fas fa-edit fa-2x"></i>
+        <% end %>
+      <%= link_to root_path do %> |
+      <i class="fas fa-arrow-circle-left fa-2x"></i>
+        <% end %> |
+      <%= link_to @tweet, method: :delete, data: { confirm: 'Are you sure?' } do %>
+          <i class="fas fa-trash-alt fa-2x"></i>
+        <% end %>
+  </div>
