@@ -13,13 +13,13 @@
       <p>
         <strong>User:</strong>
         <%= @tweet.user.nickname %>
-        <img src="<%= @tweet.user.profile_photo %>" height="45" width="45" alt="">
+        <img src="<%= @tweet.user.profile_photo %>" height="45" width="45" class="border border-black rounded-circle" alt="">
       </p>
 
       <p>
         <strong>Usuarios que dieron likes:</strong>
         <% @tweet.likes.each do |like|%>
-        <img src="<%= like.user.profile_photo %>" alt="" weight="40px" height="40px">
+        <img src="<%= like.user.profile_photo %>" weight="40px" height="40px" class=" border border-black rounded-circle" alt="">
         <% end %>
       </p>
 

@@ -25,21 +25,21 @@
         <% if user_signed_in?  %>
             <% pre_like = tweet.likes.find {|like| like.user.id == current_user.id}  %> 
               <% if pre_like  %>
-                        <%= link_to (like_path(tweet.id)), method: :delete do %>
-                        <i class="fas fa-thumbs-up fa-2x text-primary"></i>
+                    <%= link_to (like_path(tweet.id)), method: :delete do %>
+                    <i class="fas fa-thumbs-up fa-2x text-primary"></i>
                     <% end %>  
                     <% else  %>
-                        <%= link_to (likes_path(tweet.id)), method: :post do %>
-                      <i class="far fa-thumbs-up fa-2x text-primary"></i></td>
-                      <% end %> 
+                    <%= link_to (likes_path(tweet.id)), method: :post do %>
+                    <i class="far fa-thumbs-up fa-2x text-primary"></i></td>
+                    <% end %> 
                     <% end %>
-                  <% end %>
-              <%= link_to retweet_tweet_path(tweet), method: :post do %>
-              <i class="fas fa-retweet fa-2x text-primary"></i>
+                    <%= link_to retweet_tweet_path(tweet), method: :post do %>
+                    <i class="fas fa-retweet fa-2x text-primary"></i>
+                    <% end %>
+                    <% if tweet.ref_id_tweet != nil %>
+                    <%= link_to "Ir a Tweet original", tweet_path(tweet.ref_id_tweet)%></td>
               <% end %>
-                <% if tweet.ref_id_tweet != nil %>
-                <%= link_to "Ir a Tweet original", tweet_path(tweet.ref_id_tweet)%></td>
-          <% end  %>
+          <% end %>
       </div>
   </div>
 <% end %>
