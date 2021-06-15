@@ -10,13 +10,14 @@
       </ul>
     </div>
   <% end %>
-
+<div>
   <div class="field">
-    <%= form.label :textweet %>
+    <h3>Nuevo Tweet</h3>
     <%= form.text_area  :textweet %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit"Twittear", :class => 'btn text-light' %>
   </div>
+</div>
 <% end %>

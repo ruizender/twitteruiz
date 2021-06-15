@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations' }
   # post 'likes'
   root 'home#index'
+  resources :friends
 end

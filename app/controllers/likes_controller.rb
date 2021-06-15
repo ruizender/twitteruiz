@@ -1,37 +1,22 @@
-class LikesController < ApplicationController
-
-  before_action :find_tweet
-  before_action :find_like, only: [:destroy]
-
+class FriendsController < ApplicationController
+  before_action :set_user
+  
     def create
-
-      if already_liked?
-        flash[:notice] = "Tweet already liked"
-      else
-        @tweet.likes.create(user_id: current_user.id)
-      end
-      redirect_to root_path(@tweet)
+  
+      @friend = Friend.create(user_id: current_user.id, friend_id: params[:id])
+      redirect_to root_path, notice: "Now you have a new friend"
+      
     end
+  
     def destroy
-      if already_liked?
-        @like.destroy
-      else
-        flash[:notice] = "Tweet already unliked" 
-      end
+      @friend.destroy, flash[:notice] = "Successfully unfollowed"
       redirect_to root_path
     end
-    
-    private
   
-    def find_tweet
-      @tweet = Tweet.find_by(id: params[:format])
-    end
+    private
     
-    def find_like
-      @like = Like.find_by(user_id: current_user.id, tweet_id: params[:id])
+    def set_user
+      @user = Tweet.find(current_user.id)
     end
 
-    def already_liked?
-      Like.find_by(user_id: current_user.id, tweet_id: params[:id]) != nil
-    end
-end
+  end
