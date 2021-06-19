@@ -12,12 +12,34 @@
 <br>
 <h1 class="">Tweets</h1>
 
+
+    <%= form_tag root_path, method: :get do %>
+    <%= text_field_tag :q, nil, placeholder: 'Buscar Tweet', class:"my-2 my-sm-0"  %>
+    <%= submit_tag "search", class:"btn btn-outline-success my-2 my-sm-0" %>
+    <%= link_to "Back", root_path, class:'btn btn-outline-success my-2 my-sm-0 text-light'%>
+<% end  %>
+<br>
+
 <% @tweets.each do |tweet| %>
   <div class="media border border-secondary mb-3 container bg-light">
+  <div class="mr-4 text-center"> 
     <img src="<%= tweet.user.profile_photo %>" height="64" width="64" class="m-2 border border-black rounded-circle" alt="">
+      <% if user_signed_in?  %> 
+      <p>
+          <% if tweet.user_id != current_user.id  %>
+                  <% pre_follow = @friends.find{|friend| friend.user_id == current_user.id && friend.friend_id == tweet.user_id} %>
+                    <% if pre_follow%>
+                      <%= link_to unfollow_friends_path(tweet.user_id), method: :delete,class:'btn btn-light btn-sm text-light' do %> Unfollow<% end %>
+                      <% else %>
+                        <%= link_to follow_friends_path(tweet.user_id), method: :post, class:'btn btn-light btn-sm text-light' do %> Follow<% end %>
+                    <% end %>
+                <% end  %>
+        <% end  %>
+      </p>
+    </div>
       <div class="media-body my-3">
         <span class="h5 mt-0 text-primary">@<%= tweet.user.nickname %></span> 
-        <%= link_to 'Seguir', root_path, class:'btn btn-light btn-sm text-light ' %>
+
         <p class="h5 text-secondary"><%= tweet.textweet %></p>
         <%= tweet.likes.count %><%= tweet.likes.count == 1? ' like': " Likes" %> | 
         <%= tweet.retweet %><%= tweet.retweet == 1? ' Retweet': " Retweets" %> |
@@ -39,14 +61,14 @@
                         <%= link_to (likes_path(tweet.id)), method: :post do %>
                           <i class="far fa-thumbs-up fa-2x text-primary"></i>
                         <% end %> 
-                <% end %>
-                <%= link_to retweet_tweet_path(tweet), method: :post do %>
-                  <i class="fas fa-retweet fa-2x text-primary"></i>
-                    <% end %>
-                  <%= link_to tweet_path(tweet) do %> 
-                    <i class="fas fa-eye fa-2x text-primary"></i>
                       <% end %>
-          <% end %>
+                      <%= link_to retweet_tweet_path(tweet), method: :post do %>
+                        <i class="fas fa-retweet fa-2x text-primary"></i>
+                          <% end %>
+                        <%= link_to tweet_path(tweet) do %> 
+                          <i class="fas fa-eye fa-2x text-primary"></i>
+                            <% end %>
+            <% end %>
           </div>
       </div>
   </div>

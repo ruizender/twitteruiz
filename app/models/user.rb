@@ -6,7 +6,7 @@ class User < ApplicationRecord
   #validates :nickname, :profile_photo, presence: true
   has_many :tweets, dependent: :destroy
   has_many :likes, dependent: :destroy
-  has_many :user
+  has_many :friends, dependent: :destroy
   def to_s
     nickname
   end

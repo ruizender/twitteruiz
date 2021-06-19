@@ -3,7 +3,6 @@ class TweetsController < ApplicationController
   
   # GET /tweets or /tweets.json
 
-
   # GET /tweets/1 or /tweets/1.json
   def show
   end
@@ -62,7 +61,7 @@ class TweetsController < ApplicationController
     retweet_ready.ref_id_tweet = @tweet.id
     if retweet_ready.save
       if @tweet.retweet.nil?
-        @tweet.update(retweet: @tweet.retweet = 1)  
+          @tweet.update(retweet: @tweet.retweet = 1)  
       else
         
         @tweet.update(retweet: @tweet.retweet += 1)

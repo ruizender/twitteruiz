@@ -29,10 +29,10 @@ gem 'jbuilder', '~> 2.5'
 gem 'kaminari', :git => 'https://github.com/kaminari/kaminari'
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
-
+gem 'activeadmin'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
+gem 'ransack'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
