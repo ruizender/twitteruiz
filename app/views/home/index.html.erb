@@ -41,7 +41,7 @@
       <div class="media-body my-3">
         <span class="h5 mt-0 text-primary">@<%= tweet.user.nickname %></span> 
         <p class="h5 text-secondary"><% hashtag = tweet.textweet.split(" ") %></p>
-        <% edwords = [] %>
+        <% ed_words = [] %>
         <% hashtag.each do |word| %>
           <% if word.first == "#" %>
             <% word = link_to word%>
