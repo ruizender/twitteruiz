@@ -8,15 +8,17 @@
       <ul class="navbar-nav ml-auto">
         <% if user_signed_in? %>
         <li class="nav-item">
-          <%= link_to 'Admin', new_admin_user_session_path, class:'btn btn-light text-light ' %>
           <%= link_to 'Cerrar Sesion', destroy_user_session_path, method: :delete , class:'btn btn-light text-light ' %>
         </li>
         <% else %>
-        <li class="nav-item">
-          <%= link_to 'Registrate Aqui', new_user_registration_path, class:'btn btn-light text-light' %>
+        <li class="nav-item" >
+        <%= link_to 'Admin', new_admin_user_session_path, class:'btn btn-light text-light' %>
         </li>
         <li class="nav-item">
-          <%= link_to 'Inicia Sesion', new_user_session_path, class:'btn btn-light mx-2 text-light'  %>
+          <%= link_to 'Registrate Aqui', new_user_registration_path, class:'btn btn-light mx-2 text-light' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Inicia Sesion', new_user_session_path, class:'btn btn-light text-light'  %>
         </li>
         <% end %>
       </ul>

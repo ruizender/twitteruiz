@@ -5,19 +5,20 @@
 <p id="notice" ><%= notice %></p>
 
 <% if user_signed_in?  %>
-<div class="border-bottom border-primary">
-  <%= render 'tweets/form', tweet: @tweet %>
-  </div>
-<% end %>
+  <div class="border-bottom border-primary">
+    <%= render 'tweets/form', tweet: @tweet %>
+    </div>
+  <% end %>
 <br>
 <h1 class="">Tweets</h1>
 
-
+<div class = "container">
     <%= form_tag root_path, method: :get do %>
     <%= text_field_tag :q, nil, placeholder: 'Buscar Tweet', class:"my-2 my-sm-0"  %>
-    <%= submit_tag "search", class:"btn btn-outline-success my-2 my-sm-0" %>
-    <%= link_to "Back", root_path, class:'btn btn-outline-success my-2 my-sm-0 text-light'%>
+    <%= submit_tag "Buscar", class:"btn btn-outline-success my-2 my-sm-0" %>
+    <%= link_to "Mostrar todos", root_path, class:'btn btn-outline-success my-2 my-sm-0 text-light'%>
 <% end  %>
+
 <br>
 
 <% @tweets.each do |tweet| %>
@@ -26,21 +27,28 @@
     <img src="<%= tweet.user.profile_photo %>" height="64" width="64" class="m-2 border border-black rounded-circle" alt="">
       <% if user_signed_in?  %> 
       <p>
-          <% if tweet.user_id != current_user.id  %>
-                  <% pre_follow = @friends.find{|friend| friend.user_id == current_user.id && friend.friend_id == tweet.user_id} %>
-                    <% if pre_follow%>
-                      <%= link_to unfollow_friends_path(tweet.user_id), method: :delete,class:'btn btn-light btn-sm text-light' do %> Unfollow<% end %>
-                      <% else %>
-                        <%= link_to follow_friends_path(tweet.user_id), method: :post, class:'btn btn-light btn-sm text-light' do %> Follow<% end %>
-                    <% end %>
-                <% end  %>
+        <% if tweet.user_id != current_user.id  %>
+              <% pre_follow = @friends.find{|friend| friend.user_id == current_user.id && friend.friend_id == tweet.user_id} %>
+              <% if pre_follow%>
+              <%= link_to unfollow_friends_path(tweet.user_id), method: :delete,class:'btn btn-light btn-sm text-light' do %> Unfollow<% end %>
+              <% else %>
+              <%= link_to follow_friends_path(tweet.user_id), method: :post,class:'btn btn-light btn-sm text-light' do %> Follow<% end %>
+              <% end %>
+            <% end  %>
         <% end  %>
       </p>
     </div>
       <div class="media-body my-3">
         <span class="h5 mt-0 text-primary">@<%= tweet.user.nickname %></span> 
-
-        <p class="h5 text-secondary"><%= tweet.textweet %></p>
+        <p class="h5 text-secondary"><% hashtag = tweet.textweet.split(" ") %></p>
+        <% edited_words = [] %>
+        <% hashtag.each do |word| %>
+          <% if word.first == "#" %>
+            <% word = link_to word%>
+          <% end %>
+          <% edited_words.push(word) %>
+        <% end %>
+        <p><%= raw edited_words.join(" ") %></p>
         <%= tweet.likes.count %><%= tweet.likes.count == 1? ' like': " Likes" %> | 
         <%= tweet.retweet %><%= tweet.retweet == 1? ' Retweet': " Retweets" %> |
         <%= link_to time_ago_in_words(tweet.created_at),tweet %> |
