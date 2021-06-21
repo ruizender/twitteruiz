@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     end
   end
   resources :likes
+  get "users", to: 'home#list_users', as:'list_users'
   devise_for :users, controllers: { registrations: 'users/registrations' }
   
   root 'home#index'

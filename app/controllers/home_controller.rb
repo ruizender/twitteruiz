@@ -21,4 +21,9 @@ class HomeController < ApplicationController
     @friends = Friend.all
     @friend = Friend.new
   end
+
+  def list_users
+    @users = User.where.not(id: current_user.id)
+    @friends = Friend.all
+  end
 end

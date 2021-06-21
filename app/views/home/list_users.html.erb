@@ -1,0 +1,20 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Foto Perfil</th>
+      <th scope="col">nickname</th>
+      <th scope="col">email</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+      <td><img src="<%= user.profile_photo %>" height="64" width="64" class="m-2 border border-black rounded-circle" alt=""> </td>
+        <td><%= user.nickname %></td>
+        <td><%= user.email %></td>
+        <td><%= link_to follow_friends_path(user.id), method: :post,class:'btn btn-light text-light' do %> Follow<% end %></td>
+      </tr>
+    <% end  %>
+  </tbody>
+</table>
