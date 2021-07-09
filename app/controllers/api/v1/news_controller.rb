@@ -1,6 +1,8 @@
 module Api
   module V1
     class NewsController < V1Controller
+      include ActionController::HttpAuthentication::Basic::ControllerMethods
+      http_basic_authenticate_with name: "example", password: "example", only: %i[ tweet_from_api ]
       def news
         tweets_groups = Tweet.order("created_at DESC")
         i = 0
@@ -41,6 +43,20 @@ module Api
           end
         end
         render json: array
+      end
+
+      def tweet_from_api
+        content = request.raw_post
+        tweet = JSON.parse(content)
+        newcontent = Tweet.new(tweet)
+        user = User.find(newcontent[:user_id]) rescue nil
+        
+        if user.nil?
+          render json: { error: "Please insert a valid user id"}
+        else
+          newcontent.save
+            render json: newcontent
+        end   
       end
     end
   end

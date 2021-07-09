@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       get "/news", to: "news#news"
       get "/:fecha1/:fecha2", to: "news#limit"
+      post "/tweet_from_api", to: "news#tweet_from_api"
         end
   end
   
@@ -23,5 +24,4 @@ Rails.application.routes.draw do
 
   post 'friends/:id', to: 'friends#create', as:'follow_friends'
   delete 'friends/:id', to: 'friends#destroy', as:'unfollow_friends'
-
 end
